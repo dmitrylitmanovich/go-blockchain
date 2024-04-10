@@ -1,6 +1,10 @@
 package main
 
-import bolt "go.etcd.io/bbolt"
+import (
+	"log"
+
+	bolt "go.etcd.io/bbolt"
+)
 
 type BlockchainIterator struct {
 	currentHash []byte
@@ -23,6 +27,10 @@ func (i *BlockchainIterator) Next() *Block {
 
 		return nil
 	})
+
+	if err != nil {
+		log.Panic(err)
+	}
 
 	i.currentHash = block.PrevBlockHash
 
